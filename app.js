@@ -37,11 +37,11 @@ function questionFormSelection(){
     let randomNumber = Math.random();
     if (randomNumber < 0.5){
         // generate a french to english question
-        ask = `Translate ${words.fr} into english.`;
+        ask = `Translate "${words.fr}" into english.`;
         correct_answer = words.en;
     }else{
         // generate an english to french question
-        ask = `Translate ${words.en} into french.`;
+        ask = `Translate "${words.en}" into french.`;
         correct_answer = words.fr;
     }
 };
@@ -71,7 +71,6 @@ document.getElementById('submit').addEventListener("click", function (){
             .toLowerCase() // Ignore uppercase
             .normalize("NFD") // Decompose accentuated char
             .replace(/[\u0300-\u036f]/g, "");
-
     
     if(processedValue == correct_answer){
         score += 1;
@@ -80,13 +79,19 @@ document.getElementById('submit').addEventListener("click", function (){
     if(step == 10){
         document.getElementById('submit').innerHTML = "Finish";
     }else if(step == 11){
-        // il faut faire disparaitre le main ici
-        // pour faire apparaitre la score section
         step = 1;
+        document.getElementById('main').style.display = "none";
         document.getElementById('submit').innerHTML = "Next";
+        document.getElementById('score').innerHTML = `${score}/10`;
         document.getElementById('score_section').style.top = 0;
     }
     document.getElementById('step').innerHTML = `${step}/10`;
     questionFormSelection();
     document.getElementById('ask').innerHTML = ask;
+});
+
+document.getElementById('retry').addEventListener("click", function (){   
+    document.getElementById('main').style.display = "flex";
+    document.getElementById('score_section').style.top = "200vh";
+    score = 0;
 });
