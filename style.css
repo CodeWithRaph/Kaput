@@ -46,51 +46,39 @@ header{
     }
 
 main{
-    /* width: 500px; pour les petits écrans*/
-    height: 400px;
-    max-height: 90vh;
-    width: 800px;
-    max-width: 90vw;
     background-color: var(--neutral-color);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
+    main > h2{
+        text-align: center;
+    }
+
     input{
-        margin: 25px;
-        padding: 10px;
-        font-size: 20px;
         color: var(--contrast-color2);
         background-color: var(--neutral-color);
         border: 0.05px solid var(--contrast-color2);
-        border-radius: 4px;
         outline: none;
     }
 
 button{
-    margin: 50px 0;
-    padding: 8px 24px;
-    font-size: 25px;
     color: var(--neutral-color);
     background: var(--contrast-color);
     border: none;
-    border-radius: 4px;
     outline: none;
     transition: padding 0.2s;
 }
 
 button:hover{
     cursor: pointer;
-    padding: 12px 36px;
 }
-
 
 
 #score_section{
@@ -104,34 +92,28 @@ button:hover{
     justify-content: center;
     background: var(--main-color);
     position: absolute;
-    top: -200vh;
+    top: 0vh;
+    left: 0;
     transition: top 0.2s;
     z-index: 99;
 }
 
     #score_section > h2{
         color: var(--neutral-color);
-        font-size: 50px;
     }
 
     #score_section > p{
-        margin: 0;
         font-family: "slackey";
-        font-size: 150px;
         font-weight: bold;
         color: var(--action-color);
-        filter: drop-shadow(0 0 10px var(--action-color));
     }
 
     table {
         color: var(--neutral-color);
-        width: 50%;
         border-collapse: collapse;
-        box-shadow: 0 0 15px var(--contrast-color2);
     }
     th, td {
         border: 1px solid var(--neutral-color);
-        padding: 10px;
         text-align: center;
     }
     th {
@@ -140,3 +122,220 @@ button:hover{
     tr{
         background-color: #744ae8;
     }
+
+
+/* 📲 Petites tablettes (480px à 768px) */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+        h1{
+            margin: 25px;
+        }
+
+    main{
+        height: 400px;
+        max-height: 90vh;
+        width: 800px;
+        max-width: 60vw;
+        border-radius: 10px;
+    }
+
+        main > h2{
+            font-size: 20px;
+        }
+
+        input{
+            margin: 15px;
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+    button{
+        margin: 30px 0;
+        padding: 8px 24px;
+        font-size: 25px;
+        border-radius: 4px;
+    }
+
+    button:hover{
+        padding: 12px 36px;
+    }
+
+        #score_section > h2{
+            font-size: 40px;
+        }
+
+        #score_section > p{
+            margin: 25px;
+            font-size: 100px;
+            filter: drop-shadow(0 0 5px var(--action-color));
+        }
+
+        table {
+            width: 80%;
+            box-shadow: 0 0 15px var(--contrast-color2);
+        }
+        th, td {
+            padding: 15px;
+        }
+}
+
+/* 💻 Tablettes et petits écrans (768px à 1024px) */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+        h1{
+            margin: 25px;
+        }
+
+    main{
+        height: 400px;
+        max-height: 90vh;
+        width: 800px;
+        max-width: 60vw;
+        border-radius: 10px;
+    }
+
+        input{
+            margin: 25px;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+
+    button{
+        margin: 50px 0;
+        padding: 8px 24px;
+        font-size: 25px;
+        border-radius: 4px;
+    }
+
+    button:hover{
+        padding: 12px 36px;
+    }
+
+        #score_section > h2{
+            font-size: 40px;
+        }
+
+        #score_section > p{
+            margin: 25px;
+            font-size: 120px;
+            filter: drop-shadow(0 0 10px var(--action-color));
+        }
+
+        table {
+            width: 60%;
+            box-shadow: 0 0 15px var(--contrast-color2);
+        }
+        th, td {
+            padding: 15px;
+        }
+}
+
+/* 🖥️ Ordinateurs et écrans larges (plus de 1200px) */
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+        h1{
+            margin: 25px;
+        }
+    
+    main{
+        height: 400px;
+        max-height: 90vh;
+        width: 800px;
+        max-width: 90vw;
+        border-radius: 10px;
+    }
+    
+        input{
+            margin: 25px;
+            padding: 10px;
+            font-size: 20px;
+            border-radius: 4px;
+        }
+    
+    button{
+        margin: 50px 0;
+        padding: 8px 24px;
+        font-size: 25px;
+        border-radius: 4px;
+    }
+    
+    button:hover{
+        padding: 12px 36px;
+    }
+    
+        #score_section > h2{
+            font-size: 50px;
+        }
+    
+        #score_section > p{
+            margin: 0;
+            font-size: 150px;
+            filter: drop-shadow(0 0 10px var(--action-color));
+        }
+    
+        table {
+            width: 50%;
+            box-shadow: 0 0 15px var(--contrast-color2);
+        }
+        th, td {
+            padding: 15px;
+        }
+}
+
+@media screen and (orientation: portrait) {
+    h1{
+        font-size: 25px;
+        margin: 25px;
+    }
+
+main{
+    height: 400px;
+    max-height: 90vh;
+    width: 800px;
+    max-width: 90vw;
+    border-radius: 10px;
+}
+
+    p{
+        font-size: 14px;
+    }
+
+    h2{
+        font-size: 18px;
+    }
+
+    input{
+        margin: 10px;
+        padding: 5px;
+        font-size: 15px;
+        border-radius: 4px;
+    }
+
+button{
+    margin: 50px 0;
+    padding: 8px 24px;
+    font-size: 20px;
+    border-radius: 4px;
+}
+
+button:hover{
+    padding: 12px 36px;
+}
+
+    #score_section > h2{
+        font-size: 10vw;
+    }
+
+    #score_section > p{
+        margin: 0;
+        font-size: 30vw;
+        filter: drop-shadow(0 0 10px var(--action-color));
+    }
+
+    table {
+        width: 90%;
+        box-shadow: 0 0 15px var(--contrast-color2);
+    }
+    th, td {
+        padding: 15px;
+    }
+}
