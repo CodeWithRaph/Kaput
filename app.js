@@ -4,30 +4,21 @@ var fr_technicalwords = ["monde ouvert", "joueur", "aleatoire", "manette", "ordi
 var en_linkwords = ["but","or","and","thus","neither [...] nor [...]","because","that is to say","in other words","or in other words","besides","furthermore","moreover","what is more","by the way","in this regard","in addition","in fact","so that","so as to [+verb]","in order to","for","to this end", "aim at","because of","as","thanks to","due to","on account of","given that","as though","in comparison","although","even though","in spite of","All the same","instead of","nevertheless","notwithstanding","otherwise","whether","whereas","yet","however","conversely","in contrary to","by contrast","as far as","as long as","then","so that","so much that","as a result","therefore","that is why","hence"];
 var fr_linkwords = ["mais","ou","et","donc","ni [...] ni [...]","parce que","c'est-a-dire","en d'autres termes","autrement dit","d'ailleurs","en outre","de plus","qui plus est","a ce propos","a cet egard","de surcroit","en fait","afin que","pour que [+verbe]","dans le but de","pour","a cet effet","viser a","en raison de","comme","grace a","du au fait de","etant donne de","etant donne que","comme si","par comparaison","bien que","meme si","malgre","tout de meme","au lieu de","neanmoins","nonobstant","sinon","si","tandis","pourtant","cependant","inversement","contrairement a","par opposition","dans la mesure de","du moment ou","puis","de telle sorte que","a tel point que","en consequence","par consequent","c'est pourquoi","d'ou"];
 
-var en_suppr_technicalwords = [];
-var fr_suppr_technicalwords = [];
-var en_suppr_linkwords = [];
-var fr_suppr_linkwords = [];
-
 var step = 0;
 var score = 0;
 var ask = "";
 var correct_answer = "";
+var en_word = "";
+var fr_word = "";
+
+let correction = {};
 
 // let us know the word to translate and the correct answer
-function randomiseWord(en_list, fr_list, type){
-
+function randomiseWord(en_list, fr_list){
     // round an random real number between 0 included and en_list.lenght excluded
     let index = Math.floor(Math.random() * (en_list.length));
-    // remove from the list the picked elements
-    if(type == "linkwords"){
-        en_suppr_linkwords.push(en_list.splice(index,1));
-        fr_suppr_linkwords.push(fr_list.splice(index,1));
-    }else{
-        en_suppr_technicalwords.push(en_list.splice(index,1));
-        fr_suppr_technicalwords.push(fr_list.splice(index,1));
-    }
-    
+    en_word = en_list[index];
+    fr_word = fr_list[index];
     return {en: en_list[index], fr: fr_list[index]};
 };
 
@@ -37,10 +28,10 @@ function questionTypeSelection(){
     let randomNumber = Math.random();
     if (randomNumber < 0.5){
         // generate a technical word question
-        return randomiseWord(en_technicalwords, fr_technicalwords, "technicalwords");
+        return randomiseWord(en_technicalwords, fr_technicalwords);
     }else{
         // generate a linkword question
-        return randomiseWord(en_linkwords, fr_linkwords, "linkwords");
+        return randomiseWord(en_linkwords, fr_linkwords);
     }
 };
 
@@ -59,6 +50,27 @@ function questionFormSelection(){
         correct_answer = words.fr;
     }
 };
+
+function showCorrectionTable(){
+    if (score < 10){
+        document.getElementById('score_table').innerHTML = "<tr><th>En</th><th>Fr</th></tr>";
+        for(let key in correction){
+            document.getElementById('score_table').innerHTML += `<tr><td>${key}</td><td>${correction[key]}</td></tr>`;
+        }
+        correction = {};
+    }else{
+        document.getElementById('score_table').innerHTML = "";
+    }
+}
+
+function displayScore(){
+    step = 1;
+        document.getElementById('main').style.display = "none";
+        document.getElementById('submit').innerHTML = "Next";
+        document.getElementById('score').innerHTML = `${score}/10`;
+        document.getElementById('score_section').style.top = "70px";
+        showCorrectionTable();
+}
 
 
 
@@ -88,30 +100,16 @@ document.getElementById('submit').addEventListener("click", function (){
     
     if(processedValue == correct_answer){
         score += 1;
+    }else{
+        // record in a dictionnary failed word
+        correction[en_word] = fr_word;
     }
     step += 1;
     if(step == 10){
         document.getElementById('submit').innerHTML = "Finish";
+    // The quiz is finished
     }else if(step == 11){
-        step = 1;
-        document.getElementById('main').style.display = "none";
-        document.getElementById('submit').innerHTML = "Next";
-        document.getElementById('score').innerHTML = `${score}/10`;
-        document.getElementById('score_section').style.top = 0;
-
-        // reset variables that ensure the unicity of question in a single quiz
-        for(let i = 0; i < en_suppr_linkwords.length; i++){
-            en_linkwords.push(en_suppr_linkwords[i]);
-            fr_linkwords.push(fr_suppr_linkwords[i]);
-        }
-        for(let i = 0; i < en_suppr_technicalwords.length; i++){
-            en_technicalwords.push(en_suppr_technicalwords[i]);
-            fr_technicalwords.push(fr_suppr_technicalwords[i]);
-        }
-        en_suppr_technicalwords = [];
-        fr_suppr_technicalwords = [];
-        en_suppr_linkwords = [];
-        fr_suppr_linkwords = [];
+        displayScore();
     }
     document.getElementById('step').innerHTML = `${step}/10`;
     questionFormSelection();
@@ -120,6 +118,6 @@ document.getElementById('submit').addEventListener("click", function (){
 
 document.getElementById('retry').addEventListener("click", function (){   
     document.getElementById('main').style.display = "flex";
-    document.getElementById('score_section').style.top = "200vh";
+    document.getElementById('score_section').style.top = "-200vh";
     score = 0;
 });

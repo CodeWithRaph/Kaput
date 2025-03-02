@@ -11,6 +11,7 @@ body{
     padding: 0;
     font-family: "parkisans", sans-serif;
     user-select: none;
+    overflow-x: hidden;
 }
 
 .img-bg {
@@ -95,20 +96,21 @@ button:hover{
 #score_section{
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: var(--main-color);
-    position: fixed;
-    top: 200vh;
+    position: absolute;
+    top: -200vh;
     transition: top 0.2s;
     z-index: 99;
 }
 
     #score_section > h2{
+        color: var(--neutral-color);
         font-size: 50px;
     }
 
@@ -118,4 +120,23 @@ button:hover{
         font-size: 150px;
         font-weight: bold;
         color: var(--action-color);
+        filter: drop-shadow(0 0 10px var(--action-color));
+    }
+
+    table {
+        color: var(--neutral-color);
+        width: 50%;
+        border-collapse: collapse;
+        box-shadow: 0 0 15px var(--contrast-color2);
+    }
+    th, td {
+        border: 1px solid var(--neutral-color);
+        padding: 10px;
+        text-align: center;
+    }
+    th {
+        background-color: #621ece;
+    }
+    tr{
+        background-color: #744ae8;
     }
