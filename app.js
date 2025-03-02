@@ -114,6 +114,7 @@ document.getElementById('submit').addEventListener("click", function (){
     document.getElementById('step').innerHTML = `${step}/10`;
     questionFormSelection();
     document.getElementById('ask').innerHTML = ask;
+    document.getElementById('answer').value = "";
 });
 
 document.getElementById('retry').addEventListener("click", function (){   
